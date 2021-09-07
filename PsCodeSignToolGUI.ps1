@@ -12,7 +12,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
      
         Title="CodeSignGUI" Height="200" Width="355" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Height="200" Width="355" VerticalAlignment="Center" HorizontalAlignment="Center" >
-            <Label Name="lblTitle" Content="Selected PFX Code Sign Certificate + File for Digital Signature" HorizontalAlignment="Left" Margin="5,15,0,0" VerticalAlignment="Top" Width="355" Height="35" FontSize="12"/>
+            <Label Name="lblTitle" Content="Selected PFX CodeSign Certificate and Sign File using SHA256" HorizontalAlignment="Left" Margin="5,15,0,0" VerticalAlignment="Top" Width="355" Height="35" FontSize="12"/>
             <TextBox Name="txtCertificatePath" Text="Select Code Signing Certificate" HorizontalAlignment="Left" Height="20" Width="300" Margin="15,56,0,0" VerticalAlignment="Top"  FontSize="11" IsReadOnly="false"/>
             <TextBox Name="txtFileToSignPath" Text="Select File to Sign" HorizontalAlignment="Left" Height="20" Width="300" Margin="15,83,0,0" VerticalAlignment="Top" FontSize="11" IsReadOnly="false"/>   
             <Button Name="btnSelectCert" Content="..." HorizontalAlignment="Left" Margin="314,56,0,0" VerticalAlignment="Top" Width="27" Height="20"/>
@@ -79,7 +79,6 @@ Function SelectFileToSign {
     $txtFileToSignPath.Text = "$filedirectory" + "\" + "$fname"
     return $FileBrowser.FileNames   
 }
-
 # $performSigning Button Validation Function
 function ButtonEnable {
     if ($txtCertificatePath.Text -eq "Select Code Signing Certificate" -bor $txtFileToSignPath.Text -eq "Select File to Sign" -bor $pswdbCert.Password -eq "") {
@@ -93,7 +92,6 @@ function ButtonEnable {
 $Form.Add_Loaded( {
         $btnPerformCodeSign.IsEnabled = $false
     })
-
 #Perofrm button validation on TextChange
 $txtCertificatePath.Add_TextChanged( {
         ButtonEnable
@@ -106,24 +104,17 @@ $txtFileToSignPath.Add_TextChanged( {
 $pswdbCert.Add_PasswordChanged( {
         ButtonEnable
     })
-#SELECT SIGN TOOL PATH  
-#default sign tool location:
-#"C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64"
 
 #SELECT CERTIFICATE
 $btnSelectCert.Add_Click( {
         SelectCertificate
-        
     })
 #SELECT FILE TO SIGN
 $btnFile.Add_Click( {
         SelectFileToSign
     })
 #Perform Signing 
-$btnPerformCodeSign.Add_Click( {
-        #Set Path SignTool Location
-        Set-Location $txtSignToolPath.Text
-        #Get-PfxCertificate -FilePath 
+$btnPerformCodeSign.Add_Click( { 
         $PfxCertificate = $txtCertificatePath.Text 
         $fileToSign = $txtFileToSignPath.Text
         $CertPass = $pswdbCert.Password
