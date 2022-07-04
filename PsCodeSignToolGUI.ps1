@@ -162,7 +162,6 @@ $btnPerformCodeSign.Add_Click({
         Catch [System.Exception] {
             $ErrorMSG = $_.Exception.Message 
             [System.Windows.MessageBox]::Show("An Error Occured During Signing $ErrorMSG", 'ERROR', 'OK', 'Error') 
-            $Cert.Dispose()
     }            
 })
 
