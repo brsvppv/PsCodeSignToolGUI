@@ -1,9 +1,5 @@
-﻿
-[Net.ServicePointManager]::SecurityProtocol = 'Tls12'
-[void][System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
-[void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
-Add-Type -AssemblyName System.Windows.Forms
-Add-Type -AssemblyName PresentationCore, PresentationFramework
+﻿[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Add-Type -AssemblyName PresentationCore, PresentationFramework, System.Windows.Forms
 
 [xml]$XAML = @"
 <Window
