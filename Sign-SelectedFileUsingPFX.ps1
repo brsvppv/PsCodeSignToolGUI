@@ -1,5 +1,5 @@
-﻿[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Add-Type -AssemblyName PresentationCore, PresentationFramework, System.Windows.FormstionCore, PresentationFramework, System.Windows.Forms
+﻿#[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Add-Type -AssemblyName PresentationCore, PresentationFramework, System.Windows.Forms
 
 [xml]$XAML = @"
 <Window
